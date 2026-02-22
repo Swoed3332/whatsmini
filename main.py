@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent))
 from fastapi import Request
 from fastapi.responses import Response
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, UploadFile, File, Form, HTTPException
@@ -9,6 +13,7 @@ import json
 import os
 from pathlib import Path
 
+import db
 from db import init_db, connect
 from auth import hash_password, verify_password, create_token, decode_token
 
