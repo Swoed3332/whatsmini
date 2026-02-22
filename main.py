@@ -17,11 +17,15 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI()
 
-# CORS
+# ✅ CORS FIX (wildcard + credentials problemi kaldırıldı)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=[
+        "https://whatsmini.vercel.app",  # 👉 kendi vercel domainin
+        "http://localhost:5173",
+        "http://localhost:3000",
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -104,6 +108,8 @@ def set_key(body: KeyBody):
         raise HTTPException(401, "invalid token")
 
     user = get_user(username)
+    if not user:  # ✅ FIX (500 önler)
+        raise HTTPException(404, "user not found")
 
     conn = connect()
     cur = conn.cursor()
