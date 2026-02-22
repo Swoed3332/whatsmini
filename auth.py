@@ -10,9 +10,9 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
-    password = str(password)[:72]   # ⭐ bcrypt limit fix
+    password = str(password)
+    password = password.encode("utf-8")[:72].decode("utf-8", "ignore")
     return pwd_context.hash(password)
-
 
 def verify_password(password: str, hashed: str) -> bool:
     return pwd_context.verify(password, hashed)
