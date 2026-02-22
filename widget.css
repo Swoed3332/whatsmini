@@ -1,0 +1,15 @@
+body { font-family: system-ui, Arial; margin: 0; background: #0b1220; color: #e5e7eb; }
+.box { width: 360px; height: 540px; margin: 0 auto; padding: 12px; box-sizing: border-box; }
+.header { font-weight: 700; font-size: 18px; padding: 8px 0; }
+.row { display: flex; gap: 8px; margin: 8px 0; }
+input { flex: 1; padding: 10px; border-radius: 10px; border: 1px solid #243047; background:#0f1a30; color:#e5e7eb; }
+button { padding: 10px 12px; border-radius: 10px; border: 1px solid #243047; background: #111c33; color: #e5e7eb; cursor:pointer; }
+button:hover { filter: brightness(1.1); }
+#messages { height: 280px; overflow: auto; padding: 8px; border: 1px solid #243047; border-radius: 12px; background:#0f1a30; }
+.msg { margin: 6px 0; padding: 8px 10px; border-radius: 12px; max-width: 90%; word-wrap: break-word; }
+.me { background:#19304f; margin-left:auto; }
+.them { background:#16263f; margin-right:auto; }
+.small { font-size: 12px; opacity: 0.85; }
+.hidden { display:none; }
+hr { border: none; border-top: 1px solid #243047; margin: 10px 0; }
+a { color: #93c5fd; }

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WhatsMini Widget</title>
+  <link rel="stylesheet" href="widget.css" />
+</head>
+<body>
+  <div class="box">
+    <div class="header">WhatsMini</div>
+
+    <div id="auth">
+      <div class="row">
+        <input id="username" placeholder="kullanıcı adı" autocomplete="username" />
+        <input id="password" placeholder="şifre" type="password" autocomplete="current-password" />
+      </div>
+      <div class="row">
+        <!-- type="button" = submit/reload yok -->
+        <button id="btnRegister" type="button">Register</button>
+        <button id="btnLogin" type="button">Login</button>
+      </div>
+      <div class="small" id="authStatus"></div>
+    </div>
+
+    <hr />
+
+    <div id="chat" class="hidden">
+      <div class="row">
+        <input id="toUser" placeholder="kime (username)" />
+        <button id="btnLoadKey" type="button">Key çek</button>
+      </div>
+      <div class="small" id="keyStatus"></div>
+
+      <div id="messages"></div>
+
+      <div class="row">
+        <input id="msg" placeholder="mesaj yaz..." />
+        <button id="btnSend" type="button">Gönder</button>
+      </div>
+
+      <div class="row">
+        <input id="file" type="file" />
+        <button id="btnUpload" type="button">Dosya Yükle</button>
+      </div>
+
+      <div class="small">
+        Not: Bu sürümde “key” sadece hazır mı diye kontrol eder. Mesajlar server üzerinden plain gider (MVP).
+      </div>
+
+      <div class="row">
+        <button id="btnLogout" type="button" class="danger">Çıkış</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="widget.js"></script>
+</body>
+</html>
