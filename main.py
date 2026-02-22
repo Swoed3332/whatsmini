@@ -17,11 +17,11 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI()
 
-# ✅ CORS FIX (wildcard + credentials problemi kaldırıldı)
+# ✅ PRODUCTION CORS (ÖNEMLİ)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://whatsmini.vercel.app",  # 👉 kendi vercel domainin
+        "https://whatsmini-frontend.vercel.app",
         "http://localhost:5173",
         "http://localhost:3000",
     ],
@@ -38,7 +38,7 @@ def startup():
     init_db()
 
 
-# ---------------- MODELS ----------------
+# ================= MODELS =================
 
 class RegisterBody(BaseModel):
     username: str
@@ -55,7 +55,7 @@ class KeyBody(BaseModel):
     public_key_jwk: dict
 
 
-# ---------------- HELPERS ----------------
+# ================= HELPERS =================
 
 def get_user(username: str):
     conn = connect()
@@ -66,7 +66,7 @@ def get_user(username: str):
     return row
 
 
-# ---------------- AUTH ----------------
+# ================= AUTH =================
 
 @app.post("/api/register")
 def register(body: RegisterBody):
@@ -80,7 +80,6 @@ def register(body: RegisterBody):
         )
         conn.commit()
     except Exception as e:
-        print("REGISTER ERROR:", e)
         conn.close()
         raise HTTPException(400, str(e))
 
@@ -99,7 +98,7 @@ def login(body: LoginBody):
     return {"token": token, "username": body.username}
 
 
-# ---------------- KEYS ----------------
+# ================= KEYS =================
 
 @app.post("/api/keys")
 def set_key(body: KeyBody):
@@ -108,7 +107,7 @@ def set_key(body: KeyBody):
         raise HTTPException(401, "invalid token")
 
     user = get_user(username)
-    if not user:  # ✅ FIX (500 önler)
+    if not user:
         raise HTTPException(404, "user not found")
 
     conn = connect()
@@ -147,7 +146,7 @@ def get_key(username: str):
     return {"public_key_jwk": json.loads(row["public_key_jwk"])}
 
 
-# ---------------- UPLOAD ----------------
+# ================= UPLOAD =================
 
 @app.post("/api/upload")
 async def upload(token: str = Form(...), file: UploadFile = File(...)):
@@ -165,7 +164,7 @@ async def upload(token: str = Form(...), file: UploadFile = File(...)):
     return {"url": f"/uploads/{out}"}
 
 
-# ---------------- WEBSOCKET ----------------
+# ================= WEBSOCKET =================
 
 class Manager:
     def __init__(self):
